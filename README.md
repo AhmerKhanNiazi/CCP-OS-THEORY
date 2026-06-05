@@ -185,12 +185,21 @@ flowchart LR
 ---
 
 ## 10. Prototype Screenshots
-*(Insert the screenshots of our React app here)*
-- Screenshot 1: Login Screen
-- Screenshot 2: Hospital Dashboard
-- Screenshot 3: Claim Submission Form
-- Screenshot 4: Officer Review Screen
-- Screenshot 5: Policyholder Tracking Screen
+
+### 1. Login Screen
+![Login Screen](./ScreenShots/Login%20Screen.PNG)
+
+### 2. Hospital Dashboard
+![Hospital Dashboard](./ScreenShots/Hospital%20Dashboard.PNG)
+
+### 3. Claim Submission Form
+![Claim Submission Form](./ScreenShots/Claim%20Submission%20Form.PNG)
+
+### 4. Officer Review Screen
+![Officer Review Screen](./ScreenShots/Officer%20Review%20Screen.PNG)
+
+### 5. Policyholder Tracking Screen
+![Policyholder Tracking Screen](./ScreenShots/Policyholder%20Tracking%20Screen.PNG)
 
 ---
 
