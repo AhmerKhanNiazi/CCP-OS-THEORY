@@ -1,6 +1,6 @@
 # Project Title: Smart Health Insurance Claim Processing and Fraud Detection System
 
-**Submitted To:** Miss Shumaila Qamar  
+**Submitted To:** Miss Umna Iftikhar  
 **Submitted By:** Ahmer Khan #71725  
 **Date:** 15/06/2026  
 
@@ -15,7 +15,7 @@ Our proposed software automates this process. It lets hospitals submit claims on
 
 ## 2. Letter of Acknowledgment
 **To,**  
-**Miss Shumaila Qamar,**  
+**Miss Umna Iftikhar,**  
 
 We want to thank you for your guidance and support during the development of this Complex Computing Problem (CCP) project. Your Software Engineering classes really gave us the direction we needed to design and document this system. This project wouldn't have been possible without your help and feedback. Thank you for pushing us to think practically.
 
@@ -205,4 +205,4 @@ flowchart LR
 
 ## 12. References
 1. Sommerville, I. (2015). *Software Engineering* (10th ed.). Pearson.
-2. Miss Shumaila Qamar's Software Engineering Lecture Slides.
+2. Miss Umna Iftikhar's Software Engineering Lecture Slides.
