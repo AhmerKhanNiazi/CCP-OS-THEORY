@@ -1,8 +1,8 @@
 # Smart Health Insurance Claim Processing and Fraud Detection System
 
-**🚀 Live Interactive Demo (StackBlitz):** [Click Here to View and Edit the App Real-time](https://stackblitz.com/github/honeyahmer/CCP-OS-THEORY/tree/main/Smart-Health-Insurance-System)
+**🚀 Live Interactive Demo (StackBlitz):** [Click Here to View and Edit the App Real-time](https://stackblitz.com/github/AhmerKhanNiazi/CCP-OS-THEORY/tree/main/Smart-Health-Insurance-System)
 
-**💻 Code Sandbox Alternative:** [Click Here to View the App](https://codesandbox.io/s/github/honeyahmer/CCP-OS-THEORY/tree/main/Smart-Health-Insurance-System)
+**💻 Code Sandbox Alternative:** [Click Here to View the App](https://codesandbox.io/s/github/AhmerKhanNiazi/CCP-OS-THEORY/tree/main/Smart-Health-Insurance-System)
 
 ---
 
