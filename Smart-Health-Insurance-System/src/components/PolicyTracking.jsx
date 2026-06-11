@@ -8,9 +8,10 @@ export default function PolicyTracking({ setPage, claims, currentUser }) {
   const myClaims = claims.filter(claim => claim.patientId === currentUser);
   
   const getStatusColor = (status) => {
-    if (status === 'Approved') return '#28a745';
-    if (status === 'Rejected') return '#dc3545';
-    return '#ff9800';
+    if (status === 'Approved') return 'var(--success)';
+    if (status === 'Rejected') return 'var(--danger)';
+    if (status === 'Info Requested') return 'var(--warning)';
+    return '#4facfe'; // pending
   };
 
   const handleSearch = () => { 
@@ -23,13 +24,18 @@ export default function PolicyTracking({ setPage, claims, currentUser }) {
     <div>
       <div className="navbar">
         <h1>My Health Portal</h1> 
-        <button onClick={() => setPage('login')}>Logout</button>
+        <button className="btn btn-reject" onClick={() => setPage('login')}>Logout</button>
       </div>
       <div className="container">
         <h2>Track Claims</h2>
-        <p>Welcome, <strong>({currentUser})</strong>. Your claims:</p>
+        <div className="os-panel">
+          <h3 className="os-title">Client Tracking Portal</h3>
+          <p className="os-tooltip-text">
+            <strong>Concept:</strong> Provides the end-user (Policyholder) with a read-only view of their data, fulfilling the client tracking Software Engineering requirement without giving them write access to the OS buffer.
+          </p>
+        </div>
         
-        <h3 style={{marginTop: '30px', marginBottom: '15px', color: '#004494'}}>Your Claim History</h3>
+        <h3 style={{marginTop: '30px', marginBottom: '15px', color: 'var(--primary)'}}>Your Claim History</h3>
         <table>
           <thead>
             <tr>
@@ -50,33 +56,41 @@ export default function PolicyTracking({ setPage, claims, currentUser }) {
                   <td>{claim.id}</td>
                   <td>{claim.treatment}</td>
                   <td>{claim.hospital}</td>
-                  <td style={{color: getStatusColor(claim.status), fontWeight: 'bold'}}>{claim.status}</td>
+                  <td>
+                    <span className="badge" style={{backgroundColor: `${getStatusColor(claim.status)}20`, color: getStatusColor(claim.status)}}>
+                      {claim.status}
+                    </span>
+                  </td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
 
-        <hr style={{margin: '40px 0', border: 'none', borderTop: '1px solid #ddd'}} />
+        <hr style={{margin: '40px 0', border: 'none', borderTop: '1px solid var(--surface-border)'}} />
         
-        <h3>Search Specific Claim</h3>
+        <h3 style={{color: 'var(--primary)'}}>Search Specific Claim</h3>
         <div className="form-group" style={{display: 'flex', gap: '10px', marginTop: '10px'}}>
           <input placeholder="Enter Claim ID" style={{flex: 1}} value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
           <button className="btn" onClick={handleSearch}>Search</button>
         </div>
 
         {hasSearched && (
-          <div style={{marginTop: '20px', padding: '20px', background: '#f8f9fa', borderRadius: '8px', border: '1px solid #ddd'}}>
+          <div className="os-panel" style={{marginTop: '20px'}}>
             {searchResult ? (
               <div>
-                <h3 style={{color: '#004494', marginBottom: '15px'}}>Search Result</h3>
+                <h3 className="os-title" style={{marginBottom: '15px'}}>Search Result</h3>
                 <p><strong>Claim ID:</strong> {searchResult.id}</p>
                 <p><strong>Hospital:</strong> {searchResult.hospital}</p>
                 <p><strong>Treatment:</strong> {searchResult.treatment}</p>
-                <p><strong>Status:</strong> <span style={{marginLeft: '10px', color: getStatusColor(searchResult.status), fontWeight: 'bold'}}>{searchResult.status}</span></p>
+                <p><strong>Status:</strong> 
+                  <span className="badge" style={{marginLeft: '10px', backgroundColor: `${getStatusColor(searchResult.status)}20`, color: getStatusColor(searchResult.status)}}>
+                    {searchResult.status}
+                  </span>
+                </p>
               </div>
             ) : (
-              <p style={{color: '#dc3545', fontWeight: 'bold'}}>No claim found with ID "{searchQuery}". Please check and try again.</p>
+              <p style={{color: 'var(--danger)', fontWeight: 'bold'}}>No claim found with ID "{searchQuery}". Please check and try again.</p>
             )}
           </div>
         )}

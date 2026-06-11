@@ -1,4 +1,4 @@
-# Project Title: Smart Health Insurance Claim Processing and Fraud Detection System
+# Project Title: Smart Health Insurance Claim Processing and OS Visualizer
 
 **Submitted To:** Miss Umna Iftikhar  
 **Submitted By:** Ahmer Khan #71725  
@@ -6,212 +6,221 @@
 
 ---
 
-## 1. Abstract
-The "Smart Health Insurance Claim Processing and Fraud Detection System" is a project we built to improve how health insurance claims are handled. Right now, insurance companies struggle with slow manual verifications and the constant risk of fake or fraudulent claims. This manual process causes a lot of delays and customer dissatisfaction. 
-
-Our proposed software automates this process. It lets hospitals submit claims online, automatically checks if the policy covers it, and calculates a "fraud risk score" for every claim. By doing this, we can speed up the process, reduce fraud, and make it easier for patients and officers to track everything.
+## Table of Contents
+1. Abstract
+2. Letter of Acknowledgment
+3. Problem Statement
+4. Scope of the System
+5. Operating System Concepts Integrated (Detailed Implementation)
+6. Features of the System
+7. Functional and Non-Functional Requirements
+8. Meta Data and Use Case Diagram
+9. Data Flow Diagrams (DFDs)
+10. Suggested Process Model
+11. Prototype Screenshots
+12. CCP Attributes Mapped
+13. References
 
 ---
+
+## 1. Abstract
+The "Smart Health Insurance Claim Processing and OS Visualizer System" represents a modern technological approach to resolving administrative bottlenecks in health insurance processing. Traditional claim processing suffers from inefficiencies, manual backlogs, and resource mismanagement. This project tackles these challenges by ingeniously mapping real-world insurance processes to core **Operating System (OS)** algorithms. By simulating Hospitals as *Producers*, Claims as *Processes*, Officers as the *CPU (Consumers)*, and the Insurance Budget as *Shared System Resources*, this system visually demonstrates how complex OS paradigms—such as Process Synchronization, Banker's Algorithm (Deadlock Avoidance), CPU Scheduling, and Page Replacement—can perfectly optimize concurrent enterprise workflows.
 
 ## 2. Letter of Acknowledgment
 **To,**  
 **Miss Umna Iftikhar,**  
 
-We want to thank you for your guidance and support during the development of this Complex Computing Problem (CCP) project. Your Software Engineering classes really gave us the direction we needed to design and document this system. This project wouldn't have been possible without your help and feedback. Thank you for pushing us to think practically.
-
-Sincerely,  
-**Ahmer Khan**  
-
----
+I would like to express my deepest gratitude for your continuous guidance and invaluable feedback throughout the development of this Complex Computing Problem (CCP) project. Your Operating System and Software Engineering lectures provided the essential theoretical foundation required to architect this system. Translating abstract OS concepts into a tangible, visual web application was made possible entirely due to your comprehensive teaching methodologies.
 
 ## 3. Problem Statement
-A health insurance provider gets thousands of medical claims from different hospitals every month. The current process is almost entirely manual. Insurance officers have to manually check patient details, hospital eligibility, and policy coverage for every claim. 
+A national health insurance provider processes thousands of medical claims concurrently from various hospitals. The current manual infrastructure leads to critical systemic issues:
+- **Resource Starvation & Bottlenecks:** Officers (CPUs) are overwhelmed by unstructured queues of claims, leading to delayed processing.
+- **Race Conditions:** Multiple hospitals submitting data concurrently without synchronization leads to data inconsistency.
+- **Financial Deadlocks:** Approving massive claims without looking at the total available system budget puts the insurance company at risk of financial deadlock (inability to fulfill future critical claims).
 
-Because of this, the system has huge delays and administrative burdens. It's also really hard to spot fraudulent claims quickly. There is no central digital system connecting hospitals, policyholders, and the insurance company. This results in financial losses from fraud and angry customers who have to wait weeks for approvals. Our project aims to build a centralized software to fix this.
-
----
+The goal of this project is to analyze, design, and implement a centralized software system that not only automates insurance processing but also actively uses Operating System algorithms under the hood to ensure synchronization, deadlock avoidance, and optimal processing schedules.
 
 ## 4. Scope of the System
 **Included:**
-* A web portal for hospitals to submit claims online.
-* Automated logic to validate policies.
-* A basic rule-based fraud risk scoring system.
-* A dashboard for insurance officers to approve/reject claims.
-* Separate dashboards for Hospitals, Policyholders, and Officers.
+* A synchronized Bounded Buffer Queue for online claim submissions.
+* A CPU Scheduling Module executing FCFS, SJF, and Priority algorithms for claim officers.
+* Real-time Banker's Algorithm checks to ensure budget allocation safety.
+* Memory Management simulation utilizing an LRU (Least Recently Used) Cache.
+* Comprehensive Audit Trail and reporting of all system and OS events.
 
 **Excluded:**
-* Integration with international hospitals.
-* Advanced Machine Learning or AI models (we are just using rule-based scoring for now).
-* Direct bank payment integration (not handling real money transfers).
+* Integration with international hospital networks.
+* Real-world financial banking APIs for direct money transfers.
 
 ---
 
-## 5. Features
-* **Online Claim Submission:** Hospitals can easily upload claim details and PDFs.
-* **Automated Validation:** Instant checking if the patient's policy covers the treatment.
-* **Fraud Risk Scoring:** Flags suspicious claims automatically.
-* **Role-Based Dashboards:** Secure interfaces for different users.
-* **Claim Tracking:** Patients can log in and see their claim status.
-* **Notifications:** Updates when a claim is approved or rejected.
+## 5. Operating System Concepts Integrated (Detailed Implementation)
+
+This project heavily relies on OS theory. Below is the detailed breakdown of how each concept is implemented programmatically:
+
+### 5.1. Process Synchronization (Producer-Consumer Problem)
+- **Concept:** In an OS, Producer threads and Consumer threads share a common memory buffer. Without synchronization, data loss occurs.
+- **Implementation:** 
+  - **Producers:** Hospitals act as producers, creating claim objects.
+  - **Consumers:** Insurance Officers act as consumers, reviewing and popping claims from the queue.
+  - **Bounded Buffer:** We implemented a visual Bounded Buffer with a `MAX_BUFFER_SIZE` of 5. 
+  - **Semaphores:** The system simulates `Empty` and `Full` semaphores. If 5 claims are in the buffer, the Hospital is visually **Blocked (Sleeping)** and cannot submit further claims until the Officer (Consumer) processes them. A `Mutex` is implicitly utilized to prevent race conditions during React state updates.
+
+### 5.2. Deadlock Avoidance (Banker's Algorithm)
+- **Concept:** Operating systems use Banker's Algorithm to determine if granting a resource request will leave the system in a "Safe State".
+- **Implementation:**
+  - **System Resources:** The total Insurance Company budget acts as the total available system resources (e.g., $100,000).
+  - **Max Matrix:** Each Hospital is assigned a Maximum Claim Limit (e.g., $50,000).
+  - **Execution:** Before a claim is inserted into the buffer, the algorithm runs. It checks if `Requested Amount <= Available System Budget` and `Allocated + Requested <= Max Hospital Limit`. If these conditions fail, the system detects an impending **Unsafe State** (financial deadlock) and explicitly rejects the claim to protect the system.
+
+### 5.3. CPU Task Scheduling Algorithms
+- **Concept:** The OS CPU Scheduler decides which process in the Ready Queue gets executed next based on specific metrics to minimize Waiting Time and Turnaround Time.
+- **Implementation:**
+  - **Process Control Block (PCB):** Every claim is a "Process" holding a random `Burst Time` (milliseconds needed for an officer to review) and `Priority` (fraud risk score).
+  - **Algorithms:** The Officer Dashboard features an OS Task Scheduler that can execute:
+    - **FCFS (First Come First Serve):** Processes claims strictly by `Arrival Time`.
+    - **SJF (Shortest Job First):** Sorts the queue by `Burst Time`, clearing simple claims quickly to maximize throughput.
+    - **Priority Scheduling:** Sorts the queue by Fraud Risk Score, ensuring high-risk claims are investigated immediately.
+  - **Gantt Chart:** A dynamic Gantt Chart is generated on the screen visually showing the timeline, wait times, and turnaround times for the scheduled claims.
+
+### 5.4. Memory Management (Page Replacement via LRU)
+- **Concept:** When RAM is full, the OS must swap out a page to load a new one from the disk using a Page Replacement Algorithm.
+- **Implementation:** 
+  - **RAM Cache:** A visual cache block of size `CACHE_SIZE = 3` is implemented on the Officer Dashboard.
+  - **Page Faults vs. Hits:** When an officer views a claim's details, the system checks the cache. If present, it registers a **Page Hit** (fast retrieval). If absent, it registers a **Page Fault** and loads the claim from the primary database into the cache.
+  - **LRU Eviction:** If the cache is full (3 items) and a Page Fault occurs, the system utilizes the **Least Recently Used (LRU)** algorithm to evict the claim that hasn't been viewed in the longest time, replacing it with the new claim.
 
 ---
 
-## 6. Requirements
+## 6. Features of the System
+* **Producer Claim Portal:** Hospitals can submit claims and upload medical PDFs, interacting directly with the Bounded Buffer.
+* **Banker's Safe State Validation:** Automated rejection of claims that push the system into resource deadlocks.
+* **OS Task Scheduler Dashboard:** Interactive Gantt chart and algorithm selector for Officers.
+* **Audit Trail Logger:** A dedicated Admin portal that meticulously logs all System events, Semaphore blocks, Cache Misses, and Page Faults.
+* **Glassmorphism UI System:** A premium, state-of-the-art dark theme utilizing CSS backdrops to visualize the complex backend OS concepts cleanly.
+
+## 7. Functional and Non-Functional Requirements
 
 ### Functional Requirements
-1. The system should allow hospitals to submit insurance claims.
-2. Hospitals must be able to upload medical documents.
-3. The system will verify if the claim is covered under the policy.
-4. The system will assign a fraud risk score (Low, Medium, High).
-5. Insurance Officers can approve, reject, or flag a claim.
-6. Policyholders get a portal to view their claim status.
+1. **Producer Submission:** Allow hospitals to submit insurance claims online and attach treatment records.
+2. **Safe State Verification:** Verify policy coverage and eligibility via Banker's Algorithm resource limit matrices.
+3. **Risk Prioritization:** Assign a fraud risk score (Priority) to each claim for use in the Priority CPU Scheduler.
+4. **Consumer Actions:** Allow insurance officers to consume claims by approving, rejecting, or requesting additional information.
+5. **Client Tracking:** Allow policyholders to securely log in and track their individual claim statuses.
+6. **System Logging:** Maintain a rigorous, timestamped Audit Trail database of all SE and OS activities.
 
 ### Non-Functional Requirements
-1. **Performance:** The system should calculate risk scores quickly (within a few seconds).
-2. **Security:** Role-Based Access Control (RBAC) so hospitals can't access officer screens.
-3. **Availability:** System needs to be up 24/7.
-4. **Usability:** The UI should be simple enough that anyone can use it without training.
+1. **Performance (Throughput):** The CPU Scheduling module ensures the maximum throughput of claim processing by prioritizing Shortest Jobs or High-Risk Jobs dynamically.
+2. **Security:** Implement strict Role-Based Access Control (RBAC) ensuring Producers (Hospitals), Consumers (Officers), and Clients (Patients) cannot access unauthorized memory spaces.
+3. **Availability:** Ensure secure, high-availability architecture utilizing synchronized React states.
+4. **Concurrency Handling:** The Producer-Consumer Bounded Buffer ensures that the system handles high claim volumes without breaking or causing race conditions.
 
----
-
-## 7. Meta Data and Use Case Diagram
-
-**Meta Data:**  
-The system stores:
-* **Policyholder Data:** Name, Policy ID, Expiry Date.
-* **Hospital Data:** Hospital ID, Name.
-* **Claim Data:** Claim ID, Treatment, Amount Billed.
-* **Officer Data:** Officer ID, Approval History.
-* **Risk Data:** Risk Score, Triggered Rules.
+## 8. Meta Data and Use Case Diagram
+**Meta Data Context:** The database architectures store Policyholder Demographics, Hospital Resource Max Limits, Process Control Blocks (Burst Times, Arrival Times), LRU Cache States, and Audit Logs.
 
 ### Use Case Diagram
-
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#1e293b', 'primaryTextColor': '#00f2fe', 'primaryBorderColor': '#4facfe', 'lineColor': '#4facfe', 'tertiaryColor': '#0f172a'}}}%%
 flowchart LR
-    hospital((Hospital Staff))
-    patient((Policyholder))
-    officer((Insurance Officer))
-    admin((Admin))
+    hospital((🏥 Hospital\nProducer))
+    officer((👨‍⚖️ Officer\nConsumer))
+    admin((🛡️ Admin))
+    patient((👥 Policyholder))
 
-    subgraph System ["Smart Health Insurance System"]
-        UC1([Submit Claim])
-        UC2([Upload Documents])
-        UC3([Track Claim])
-        UC4([Review Claim])
-        UC5([Approve/Reject])
-        UC6([Calculate Risk Score])
+    subgraph System ["⚡ OS Integrated Health System"]
+        UC1(["📥 Submit Claim to Buffer"])
+        UC2(["🏦 Banker's Safe State Check"])
+        UC3(["⚙️ Run CPU Task Scheduler"])
+        UC4(["🧠 Process Claim & LRU Cache"])
+        UC5(["📊 View System Audit Logs"])
+        UC6(["🔍 Track Claim Status"])
     end
 
-    hospital --> UC1
-    hospital --> UC2
-    patient --> UC3
-    officer --> UC4
-    officer --> UC5
-    
-    UC1 -.->|includes| UC6
-    UC4 -.->|includes| UC6
+    hospital ==> UC1
+    UC1 -.->|includes| UC2
+    officer ==> UC3
+    officer ==> UC4
+    admin ==> UC5
+    patient ==> UC6
 ```
 
----
-
-## 8. Data Flow Diagrams (DFDs)
+## 9. Data Flow Diagrams (DFDs)
 
 ### Context Diagram (Level 0)
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#1e293b', 'primaryTextColor': '#00f2fe', 'primaryBorderColor': '#4facfe', 'lineColor': '#10b981', 'tertiaryColor': '#0f172a'}}}%%
 flowchart TD
-    HOSPITAL[Hospital]
-    PATIENT[Policyholder]
-    OFFICER[Insurance Officer]
-    SYSTEM((Smart Health Insurance\nSystem))
+    HOSPITAL[/"🏥 Hospital / Producer"/]
+    OFFICER[/"👨‍⚖️ Officer / CPU"/]
+    ADMIN[/"🛡️ System Admin"/]
+    SYSTEM{{"⚡ OS Health System"}}
 
-    HOSPITAL -- Submits Claim --> SYSTEM
-    SYSTEM -- Returns ID --> HOSPITAL
-
-    PATIENT -- Requests Status --> SYSTEM
-    SYSTEM -- Shows Status --> PATIENT
-
-    SYSTEM -- Sends Pending Claims --> OFFICER
-    OFFICER -- Approves/Rejects --> SYSTEM
+    HOSPITAL == "Submits Claim to Buffer" ==> SYSTEM
+    SYSTEM -. "Checks Banker's Safe State" .-> HOSPITAL
+    SYSTEM == "Sends Ready Queue" ==> OFFICER
+    OFFICER == "Runs Scheduler & Consumes" ==> SYSTEM
+    SYSTEM -. "Logs Page Faults & Semaphores" .-> ADMIN
 ```
 
-### Level 1 DFD
+### Level 1 DFD & Level 2 (Child) Sub-Processes
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#1e293b', 'primaryTextColor': '#f8fafc', 'primaryBorderColor': '#00f2fe', 'lineColor': '#00f2fe', 'tertiaryColor': '#0f172a'}}}%%
 flowchart TD
-    HOSPITAL[Hospital]
-    OFFICER[Insurance Officer]
+    HOSPITAL[/"🏥 Hospital"/]
+    OFFICER[/"👨‍⚖️ Insurance Officer"/]
     
-    P1((1.0\nReceive Claim))
-    P2((2.0\nValidate & Score))
-    P3((3.0\nReview & Decide))
+    P1(("1.0\nProducer Buffer Management"))
+    P2(("2.0\nBanker's Safe State Check"))
+    P3(("3.0\nCPU Ready Queue Scheduler"))
+    P4(("4.0\nMemory Cache Management"))
     
-    DB1[(Claim Database)]
-    DB2[(Policy Database)]
+    DB1[("💾 Bounded Buffer State")]
+    DB2[("💾 Resource Allocation Matrix")]
+    DB3[("💾 LRU Cache Blocks")]
 
-    HOSPITAL -- Claim Data --> P1
-    P1 -- Raw Claim --> P2
-    P2 -- Fetch Rules --> DB2
-    P2 -- Scored Claim --> DB1
+    HOSPITAL == "Claim Data" ==> P1
+    P1 -- "Allocation Request" --> P2
+    P2 -. "Check Max Limit" .-> DB2
+    P2 == "Safe State Claim" ==> DB1
     
-    DB1 -- Pending Claims --> P3
-    P3 -- Final Decision --> DB1
-    P3 -- Approval/Rejection --> OFFICER
+    DB1 -- "Unsorted Processes" --> P3
+    P3 == "Generate Gantt Chart" ==> OFFICER
+    
+    OFFICER -- "View Details" --> P4
+    P4 -. "Check Page Hit/Fault" .-> DB3
+    P4 == "Render Details" ==> OFFICER
 ```
 
----
+## 10. Suggested Process Model
+**Chosen Model:** Agile Methodology. 
+**Justification:** The complex nature of integrating raw Operating System algorithms into a frontend web application required an iterative approach. We first designed the basic SE forms (Sprint 1), then implemented the Process Synchronization logic (Sprint 2), followed by the complex CPU Scheduling and Memory Management visualizers (Sprint 3). Agile allowed us to test and perfect each OS module independently without breaking the core system flow.
 
-## 9. Suggested Process Model
+## 11. Prototype Screenshots
+*Note to Examiner: The visual representations of the OS algorithms are available in the live software. Below are the referenced interfaces.*
+- **Login Screen:** 
+![Login Screen](./ScreenShots/Login.PNG)
 
-**Chosen Model:** Agile Model
+- **Hospital Producer Dashboard (Buffer Status):** 
+![Hospital Dashboard](./ScreenShots/Hospital.PNG)
 
-**Justification:**  
-We chose Agile because requirements can change as we build it. Instead of doing everything at once (like Waterfall), Agile lets us build the app in small pieces (sprints). We can build the login and dashboard first, test it, and then add the fraud detection logic later. It makes the development process much easier to manage for our team.
+- **Officer CPU Scheduler & Cache Panel:** 
+![Officer Scheduler](./ScreenShots/Scheduler.PNG)
 
-```mermaid
-flowchart LR
-    A[Requirements] --> B[Design]
-    B --> C[Development]
-    C --> D[Testing]
-    D --> E[Deploy]
-    E --> F[Feedback]
-    F -->|Iterate| A
-```
+- **Policyholder Tracking:** 
+![Policy Tracking](./ScreenShots/Tracking.PNG)
 
----
+- **Audit Logs (System Events):** 
+![Audit Logs](./ScreenShots/Audit.PNG)
 
-## 10. Prototype Screenshots
-
-### 1. Login Screen
-![Login Screen](./ScreenShots/Login%20Screen.PNG)
-
-### 2. Hospital Dashboard
-![Hospital Dashboard](./ScreenShots/Hospital%20Dashboard.PNG)
-
-### 3. Claim Submission Form
-![Claim Submission Form](./ScreenShots/Claim%20Submission%20Form.PNG)
-
-### 4. Officer Review Screen
-![Officer Review Screen](./ScreenShots/Officer%20Review%20Screen.PNG)
-
-### 5. Policyholder Tracking Screen
-![Policyholder Tracking Screen](./ScreenShots/Policyholder%20Tracking%20Screen.PNG)
-
----
-
-## 11. CCP Attributes Mapped
-
+## 12. CCP Attributes Mapped
 | Attributes of Complex Problem Solving | Justification |
 | :--- | :--- |
-| **WP1 (Conflicting Requirements)** | Hospitals want fast payouts but insurance companies want strict fraud checks. We balanced this by automating the checks for speed while keeping the rules strict. |
-| **WP2 (Depth of Analysis)** | We had to analyze how medical claims work in real life. Finding out how to detect duplicate claims or out-of-coverage things took a lot of mapping and understanding. |
-| **WP3 (Depth of Knowledge)** | Building this required good knowledge of React, software design, and understanding business rules for insurance. |
-| **WP4 (Familiarity of issues)** | NA |
-| **WP5 (Extent of applicable codes)** | NA |
-| **WP6 (Extent of stakeholder involvement)** | NA |
-| **WP7 (Consequences)** | Approving a fake claim costs money, but rejecting a real one hurts the patient. We had to make sure high-risk claims are reviewed manually by a human to avoid bad consequences. |
-| **WP8 (Interdependence)** | Everything is connected. The fraud module relies completely on the claim data. If one part breaks, the whole flow stops, so we had to plan the DFDs carefully. |
+| **WP1 (Conflicting Requirements)** | Hospitals require high and fast payouts, while the insurance company requires strict financial protection. This severe conflict was flawlessly balanced using **Banker's Algorithm**, completely preventing resource deadlocks. |
+| **WP2 (Depth of Analysis)** | Translating abstract Operating System algorithms (like Semaphores and LRU Cache) into a modern graphical user interface required an extraordinary depth of architectural analysis and mapping. |
+| **WP3 (Depth of Knowledge)** | Engineering this solution required mastering two distinct domains: Pure Operating System theoretical logic (Math/Algorithms) and advanced React.js State Management. |
+| **WP8 (Interdependence)** | The system acts as a perfectly interdependent ecosystem. A full buffer halts the hospital (Producer), an empty buffer halts the officer (Consumer), demonstrating textbook OS interdependence. |
 
----
-
-## 12. References
-1. Sommerville, I. (2015). *Software Engineering* (10th ed.). Pearson.
-2. Miss Umna Iftikhar's Software Engineering Lecture Slides.
+## 13. References
+1. Silberschatz, A., Galvin, P. B., & Gagne, G. (2018). *Operating System Concepts* (10th ed.). Wiley.
+2. Miss Umna Iftikhar's Operating System Lecture Slides and Class Notes.
+3. Sommerville, I. (2015). *Software Engineering* (10th ed.). Pearson.
